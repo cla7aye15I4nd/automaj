@@ -1,0 +1,36 @@
+{
+    "name": "ubuntu-24.04-dev",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": "."
+    },
+    "remoteUser": "ubuntu",
+    "mounts": [
+        "source=${localEnv:HOME}/.ssh,target=/home/ubuntu/.ssh,type=bind,consistency=cached"
+    ],
+    "runArgs": [
+        "--privileged"
+    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "rust-lang.rust-analyzer",
+                "llvm-vs-code-extensions.vscode-clangd",
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "ms-vscode.cpptools",
+                "dbaeumer.vscode-eslint",
+                "Anthropic.claude-code",
+                "openai.chatgpt",
+                "ritwickdey.LiveServer",
+                "charliermarsh.ruff"
+            ],
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "bash",
+                "python.defaultInterpreterPath": "/home/ubuntu/.local/venv/bin/python",
+                "clangd.path": "/usr/bin/clangd"
+            }
+        }
+    },
+    "postCreateCommand": "rustc --version && cargo --version && clang --version && python --version && pip --version && node --version && npm --version && codex --version && claude --version && kimi --version"
+}
